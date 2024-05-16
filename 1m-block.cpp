@@ -145,7 +145,7 @@ static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 	libnet_ipv4_hdr* ip_hdr = (libnet_ipv4_hdr*)(ip);
 	libnet_tcp_hdr* tcp_hdr = (libnet_tcp_hdr*)(ip + 4*ip_hdr->ip_hl);
 	START_TIME;
-	if(ip_hdr->ip_p == 0x06 && (ntohs(tcp_hdr->th_sport) == 80 || ntohs(tcp_hdr->th_dport) == 80)){
+	if(ip_hdr->ip_p == 0x06 && (ntohs(tcp_hdr->th_dport) == 80)){
 		char* payload = (char*)(ip + 4*ip_hdr->ip_hl + 4*(tcp_hdr->th_hl));
 		for (int i = 0; i < ret; i++){
 			if (strncmp(payload+i, "Host:", 5) == 0){
